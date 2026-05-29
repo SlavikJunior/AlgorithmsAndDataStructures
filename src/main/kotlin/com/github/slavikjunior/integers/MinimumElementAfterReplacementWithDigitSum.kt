@@ -10,7 +10,7 @@ class Solution {
 
         fun replaceElements(nums: IntArray): IntArray {
             return nums.map {
-               it.toSumOfDigits()
+                it.toSumOfDigits()
             }.toIntArray()
         }
     }
@@ -22,11 +22,7 @@ fun main() {
     println(Solution.minElement(test))
 }
 
-fun Int.toSumOfDigits(): Int {
-    var sum = 0
-    this.toString().toCharArray().forEach {
-        sum += it.digitToInt()
+fun Int.toSumOfDigits(): Int =
+    this.toString().toCharArray().fold(0) { acc, ch ->
+        acc + ch.digitToInt()
     }
-
-    return sum
-}
