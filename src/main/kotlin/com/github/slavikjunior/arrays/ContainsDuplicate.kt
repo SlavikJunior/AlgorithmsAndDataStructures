@@ -7,20 +7,19 @@ class ContainsDuplicateSolution {
     companion object {
 
         fun containsDuplicate(nums: IntArray): Boolean {
-            nums.sort()
+            val map = hashMapOf<Int, Byte>()
 
-            var lastValue = nums.first()
-            for (index in 1 until nums.size) {
-                val current = nums[index]
-                if (current == lastValue) return false
-                lastValue = current
+            nums.forEach { current ->
+                map[current]?.let { oldValue -> return true }
+
+                map[current] = 1.toByte()
             }
 
-            return true
+            return false
         }
     }
 }
 
 fun main() {
-    println(ContainsDuplicateSolution.containsDuplicate(intArrayOf(1, 2, 3)))
+    println(ContainsDuplicateSolution.containsDuplicate(intArrayOf(1, 2, 3, 4, 5, 6)))
 }
