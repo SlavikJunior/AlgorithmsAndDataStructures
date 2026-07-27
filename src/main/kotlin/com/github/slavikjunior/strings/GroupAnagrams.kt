@@ -6,23 +6,7 @@ class GroupAnagramsSolution {
 
     companion object {
 
-        fun groupAnagrams(strs: Array<String>): List<List<String>> {
-            if (strs.isEmpty()) return emptyList()
-
-            val map = hashMapOf<String, List<String>>()
-
-            strs.forEach { current ->
-                val uniqueAnagramKey = current.uniqueAnagramKey()
-
-                val anagrams = map.getOrDefault(uniqueAnagramKey, listOf())
-                val mutableAnagrams = anagrams.toMutableList()
-                mutableAnagrams += current
-
-                map[uniqueAnagramKey] = mutableAnagrams
-            }
-
-            return map.values.toList()
-        }
+        fun groupAnagrams(strs: Array<String>) = strs.groupBy { it.uniqueAnagramKey() }.values.toList()
 
         private fun String.uniqueAnagramKey(): String {
             val charArray = this.toCharArray()
