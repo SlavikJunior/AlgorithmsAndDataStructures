@@ -1,25 +1,42 @@
 package com.github.slavikjunior.arrays;
 
-import java.util.Arrays;
-
 public class MaximumProductOfThreeNumbersJavaSolution {
 
     public static int maximumProduct(int[] nums) {
-        Arrays.sort(nums);
-        int min1 = nums[0];
-        int min2 = nums[1];
+        var max1 = Integer.MIN_VALUE;
+        var max2 = Integer.MIN_VALUE;
+        var max3 = Integer.MIN_VALUE;
 
-        int max1 = nums[nums.length - 1];
-        int max2 = nums[nums.length - 2];
-        int max3 = nums[nums.length - 3];
+        var min1 = Integer.MAX_VALUE;
+        var min2 = Integer.MAX_VALUE;
 
-        int firstProduct = max1 * max2 * max3;
-        int secondProduct = max1 * min1 * min2;
+        for (int num : nums) {
+            if (num > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = num;
+            } else if (num > max2) {
+                max3 = max2;
+                max2 = num;
+            } else if (num > max3) {
+                max3 = num;
+            }
+
+            if (num < min1) {
+                min2 = min1;
+                min1 = num;
+            } else if (num < min2) {
+                min2 = num;
+            }
+        }
+
+        var firstProduct = max1 * max2 * max3;
+        var secondProduct = max1 * min1 * min2;
 
         return Math.max(firstProduct, secondProduct);
     }
 
     public static void main(String[] args) {
-        System.out.println(MaximumProductOfThreeNumbersJavaSolution.maximumProduct(new int[]{1, 2, 3, 4}));
+        System.out.println(MaximumProductOfThreeNumbersJavaSolution.maximumProduct(new int[]{1, 2, -3, -4}));
     }
 }
