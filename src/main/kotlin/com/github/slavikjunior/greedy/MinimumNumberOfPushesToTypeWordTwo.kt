@@ -5,19 +5,17 @@ class MinimumNumberOfPushesToTypeWordTwoSolution {
     companion object {
 
         fun minimumPushes(word: String): Int {
-            val map = mutableMapOf<Char, Int>()
-            word.toCharArray().forEach { char ->
-                map[char] = map.getOrDefault(char, 0) + 1
+            val array = IntArray(26)
+
+            word.forEach { char ->
+                array[char - 'a']++
             }
 
             var result = 0
-            map.entries.sortedByDescending { it.value }.forEachIndexed { index, entry ->
-                when  {
-                    index < 8 -> result += entry.value
-                    index in 8..15 -> result += entry.value * 2
-                    index in 16..23 -> result += entry.value * 3
-                    index in 24..25 -> result += entry.value * 4
-                }
+            array.sortedDescending().forEachIndexed { index, count ->
+                if (count == 0) return result
+
+                result += count * ((index / 8) + 1)
             }
 
             return result
